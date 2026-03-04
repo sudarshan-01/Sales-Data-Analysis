@@ -32,12 +32,23 @@ The workflow includes **data cleaning**, **exploratory data analysis (EDA)**, an
 Sales-Data-Analysis/
 │
 ├── README.md                        # Project documentation
+│
 ├── kiosk_sales_data.csv             # Kiosk sales dataset (Jan–Dec 2024, all 4 restaurants)
+├── kiosk_sales_data.xlsx            # Excel workbook: Raw Data + Monthly Summary + per-restaurant sheets
+├── Kiosk_Dashboard.pbids            # Power BI Desktop one-click connection file
 ├── Kiosk_Sales_Analysis.ipynb       # Analysis notebook: per-restaurant + company dashboards
+│
+├── dashboards/                      # Exported dashboard images (PNG, 150 dpi)
+│   ├── Dashboard1_Veena_Stores.png
+│   ├── Dashboard1_Rameshwaram_Cafe.png
+│   ├── Dashboard1_BigByte.png
+│   ├── Dashboard1_Asha_Sweets.png
+│   └── Dashboard2_Company_Overview.png
+│
 ├── Cleaned_Superstore_Sales.csv     # Superstore reference dataset (cleaned)
 ├── Sample - Superstore.csv          # Superstore reference dataset (raw)
 ├── Superstore_data_analysis.ipynb   # Superstore EDA notebook
-└── Sales_Data_Dashboard.pbix        # Power BI dashboard file
+└── Sales_Data_Dashboard.pbix        # Superstore Power BI dashboard file
 ```
 
 ---
@@ -70,6 +81,16 @@ Sales-Data-Analysis/
 
 ---
 
+## Dashboard Previews
+
+### Dashboard 1 – Per-Restaurant (Rameshwaram Cafe example)
+![Dashboard1_Rameshwaram_Cafe](dashboards/Dashboard1_Rameshwaram_Cafe.png)
+
+### Dashboard 2 – Company Overview (Addition Technologies)
+![Dashboard2_Company_Overview](dashboards/Dashboard2_Company_Overview.png)
+
+---
+
 ## Running the Analysis
 
 ```bash
@@ -81,10 +102,18 @@ jupyter notebook Kiosk_Sales_Analysis.ipynb
 
 ## Power BI Dashboard Setup
 
-### Step 1 – Import Data
-Open **Power BI Desktop** → *Get Data* → *Text/CSV* → select `kiosk_sales_data.csv`.
+### Option A – Fastest: Open the `.pbids` connection file
+1. Install **Power BI Desktop** (free from [Microsoft Store](https://apps.microsoft.com/store/detail/power-bi-desktop))
+2. Copy `Kiosk_Dashboard.pbids` to the same folder as `kiosk_sales_data.csv`
+3. Double-click `Kiosk_Dashboard.pbids` — Power BI Desktop opens and imports the CSV automatically
 
-### Dashboard 1 – Per-Restaurant Client View
+### Option B – Import from Excel
+1. Open Power BI Desktop → *Get Data → Excel Workbook*
+2. Select `kiosk_sales_data.xlsx`
+3. Check all sheets: **Raw Data**, **Monthly Summary**, **Footfall Summary**, and the four per-restaurant sheets
+4. Click **Load**
+
+### Step 2 – Build Dashboard 1 (Per-Restaurant View)
 Add a **Slicer** on the `Restaurant` field so each client can filter to their outlet, then add:
 
 | Visual | Type | Fields |
@@ -95,7 +124,7 @@ Add a **Slicer** on the `Restaurant` field so each client can filter to their ou
 | Monthly Revenue | Line Chart | X-axis: `Month` · Y-axis: `Sum(Total_Sales)` |
 | KPI Cards | Card | Total Revenue · Total Orders · Avg Order Value |
 
-### Dashboard 2 – Company Overview
+### Step 3 – Build Dashboard 2 (Company Overview)
 | Visual | Type | Fields |
 |---|---|---|
 | Monthly Revenue (all clients) | Stacked Bar | X: `Month` · Y: `Sum(Total_Sales)` · Legend: `Restaurant` |
@@ -120,7 +149,8 @@ MoM Revenue Growth % =
 ---
 
 ## Key Insights & Outcomes
-- Identified which restaurant drives the **highest customer footfall** through self-serve kiosks.
-- Highlighted **top-selling food items** per restaurant to guide menu promotion.
-- Measured **monthly revenue trends** and seasonal spikes across all 4 outlets.
-- Enabled Addition Technologies to benchmark **kiosk adoption** across client locations.
+- 🏆 **Rameshwaram Cafe** drives the highest customer footfall (55,768 kiosk orders) — highest self-serve kiosk adoption.
+- 💰 Total company revenue across all 4 outlets: **₹206.74 Lakhs** (Jan–Dec 2024).
+- 🍽️ Top-selling item at Rameshwaram Cafe: **Ghee Masala Dosa** (₹16.07L revenue).
+- 📅 Peak revenue month: **October 2024** (festival season uplift).
+- 📊 BigByte has the highest average order value (₹199+) despite lower footfall count.
