@@ -22,8 +22,8 @@ The workflow includes **data cleaning**, **exploratory data analysis (EDA)**, an
 ### Dashboard Goals
 | Dashboard | Audience | Purpose |
 |---|---|---|
-| **Dashboard 1 – Per-Restaurant** | Each client restaurant | Food-item wise sales & revenue, category split, monthly trend |
-| **Dashboard 2 – Company Overview** | Addition Technologies | Monthly revenue across all clients, customer footfall per outlet, highest kiosk usage location |
+| **Dashboard 1 – Food Item Sales (All Restaurants)** | Addition Technologies + each client | All 4 restaurants in one view — food-item revenue ranked per outlet |
+| **Dashboard 2 – Sales Comparison** | Addition Technologies | Simple comparison of all 4 clients: total revenue, monthly trends, share, top items |
 
 ---
 
@@ -39,11 +39,8 @@ Sales-Data-Analysis/
 ├── Kiosk_Sales_Analysis.ipynb       # Analysis notebook: per-restaurant + company dashboards
 │
 ├── dashboards/                      # Exported dashboard images (PNG, 150 dpi)
-│   ├── Dashboard1_Veena_Stores.png
-│   ├── Dashboard1_Rameshwaram_Cafe.png
-│   ├── Dashboard1_BigByte.png
-│   ├── Dashboard1_Asha_Sweets.png
-│   └── Dashboard2_Company_Overview.png
+│   ├── Dashboard1_All_Restaurants_Food_Item_Sales.png
+│   └── Dashboard2_Sales_Comparison.png
 │
 ├── Cleaned_Superstore_Sales.csv     # Superstore reference dataset (cleaned)
 ├── Sample - Superstore.csv          # Superstore reference dataset (raw)
@@ -83,11 +80,11 @@ Sales-Data-Analysis/
 
 ## Dashboard Previews
 
-### Dashboard 1 – Per-Restaurant (Rameshwaram Cafe example)
-![Dashboard1_Rameshwaram_Cafe](dashboards/Dashboard1_Rameshwaram_Cafe.png)
+### Dashboard 1 – Food Item Sales for All 4 Restaurants (single combined view)
+![Dashboard1_All_Restaurants](dashboards/Dashboard1_All_Restaurants_Food_Item_Sales.png)
 
-### Dashboard 2 – Company Overview (Addition Technologies)
-![Dashboard2_Company_Overview](dashboards/Dashboard2_Company_Overview.png)
+### Dashboard 2 – Sales Comparison across All 4 Clients
+![Dashboard2_Sales_Comparison](dashboards/Dashboard2_Sales_Comparison.png)
 
 ---
 
@@ -113,25 +110,34 @@ jupyter notebook Kiosk_Sales_Analysis.ipynb
 3. Check all sheets: **Raw Data**, **Monthly Summary**, **Footfall Summary**, and the four per-restaurant sheets
 4. Click **Load**
 
-### Step 2 – Build Dashboard 1 (Per-Restaurant View)
-Add a **Slicer** on the `Restaurant` field so each client can filter to their outlet, then add:
+### Step 2 – Build Dashboard 1 (Food Item Sales — All Restaurants in One Page)
+Use **Small Multiples** in Power BI to show all 4 restaurants on a single page automatically:
 
 | Visual | Type | Fields |
 |---|---|---|
-| Food Item Revenue | Horizontal Bar | Axis: `Food_Item` · Value: `Sum(Total_Sales)` |
-| Food Item Orders | Column Chart | Axis: `Food_Item` · Value: `Count(Order_ID)` |
-| Category Split | Donut Chart | Legend: `Category` · Value: `Sum(Total_Sales)` |
-| Monthly Revenue | Line Chart | X-axis: `Month` · Y-axis: `Sum(Total_Sales)` |
-| KPI Cards | Card | Total Revenue · Total Orders · Avg Order Value |
+| Food Item Revenue (all restaurants) | Horizontal Bar with **Small Multiples** | Axis: `Food_Item` · Value: `Sum(Total_Sales)` · Small multiples: `Restaurant` |
+| KPI Cards (×4) | Card | Total Revenue · Total Orders (one per restaurant, filtered by slicer) |
 
-### Step 3 – Build Dashboard 2 (Company Overview)
+> **Power BI tip:** In the Bar Chart settings, drag `Restaurant` into the **Small Multiples** field well — Power BI automatically creates a 2×2 grid showing each restaurant's food item sales in a single visual on one page.
+
+### Step 3 – Build Dashboard 2 (Simple Sales Comparison)
 | Visual | Type | Fields |
 |---|---|---|
-| Monthly Revenue (all clients) | Stacked Bar | X: `Month` · Y: `Sum(Total_Sales)` · Legend: `Restaurant` |
-| Total Footfall by Outlet | Bar Chart | Axis: `Restaurant` · Value: `Count(Order_ID)` |
-| Revenue Share | Pie / Donut | Legend: `Restaurant` · Value: `Sum(Total_Sales)` |
-| Monthly Footfall Trend | Multi-line Chart | X: `Month` · Y: `Count(Order_ID)` · Legend: `Restaurant` |
-| Footfall Heatmap | Matrix | Rows: `Restaurant` · Columns: `Month_Name` · Values: `Count(Order_ID)` |
+| Total Revenue by Restaurant | Horizontal Bar Chart | Axis: `Restaurant` · Value: `Sum(Total_Sales)` |
+| Monthly Revenue Trend | Line Chart | X: `Month_Name` · Y: `Sum(Total_Sales)` · Legend: `Restaurant` |
+| Revenue Share | Donut Chart | Legend: `Restaurant` · Value: `Sum(Total_Sales)` |
+| Top Food Item per Restaurant | Horizontal Bar (filtered to rank 1 per restaurant) | Axis: `Food_Item` · Value: `Sum(Total_Sales)` · use DAX below |
+
+```dax
+-- Top food item per restaurant: add a rank column or use this measure
+Top Item Revenue =
+    CALCULATE(
+        SUM(kiosk_sales_data[Total_Sales]),
+        TOPN(1,
+             VALUES(kiosk_sales_data[Food_Item]),
+             CALCULATE(SUM(kiosk_sales_data[Total_Sales])), DESC)
+    )
+```
 
 ### Recommended DAX Measures
 ```dax
