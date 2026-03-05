@@ -2,12 +2,14 @@
 
 ## Overview
 This project analyzes **self-serve kiosk sales data** for **Addition Technologies Pvt Ltd**, a self-serve kiosks company operating in Bangalore.  
-The analysis covers **4 client restaurants** over **3 months (October – December 2025)** and delivers two focused dashboards:
+The analysis covers **4 client restaurants** over **3 months (October – December 2025)** and delivers two Power BI-style dashboards — each a **single composite image** with KPI cards and multiple charts on the same dashboard page:
 
-| # | Dashboard Title |
-|---|----------------|
-| **Dashboard 1** | Kiosk Sales Analytics – Food Item Revenue of All Clients/Restaurants (Oct–Dec 2025) |
-| **Dashboard 2** | Sales Comparison of All 4 Clients (Oct–Dec 2025) |
+| # | Dashboard Title | Output File |
+|---|----------------|-------------|
+| **Dashboard 1** | Kiosk Sales Analytics – Food Item Revenue of All Clients/Restaurants (Oct–Dec 2025) | `dashboard1_complete.png` |
+| **Dashboard 2** | Sales Comparison of All 4 Clients (Oct–Dec 2025) | `dashboard2_complete.png` |
+
+> **Design principle:** KPI cards and all charts are combined into **one single image per dashboard** — exactly as they would appear on a Power BI report page.
 
 ### Client Restaurants (Bangalore) — Sales Rank
 | Rank | Client | Type |
@@ -30,16 +32,8 @@ Sales-Data-Analysis/
 │
 ├── Kiosks_Sales_Analysis.ipynb          # Jupyter Notebook – data generation & dashboards
 │
-├── d1_kpis.png                          # Dashboard 1: KPI cards
-├── d1_top15_items_combined.png          # Dashboard 1: Top 15 food items by revenue (all restaurants)
-├── d1_items_by_restaurant.png           # Dashboard 1: Top 12 food items split by restaurant
-├── d1_category_revenue.png              # Dashboard 1: Revenue by menu category (donut + bar)
-│
-├── d2_kpis.png                          # Dashboard 2: Per-restaurant KPI cards
-├── d2_monthly_trend.png                 # Dashboard 2: Monthly sales trend line (all 4 clients)
-├── d2_monthly_grouped_bar.png           # Dashboard 2: Monthly grouped bar comparison
-├── d2_sales_share_donut.png             # Dashboard 2: Total revenue share donut chart
-└── d2_footfall_trend.png                # Dashboard 2: Monthly customer footfall trend
+├── dashboard1_complete.png              # ★ Dashboard 1 (single image): KPI cards + all food-item charts
+└── dashboard2_complete.png             # ★ Dashboard 2 (single image): KPI cards + all comparison charts
 ```
 
 ---
@@ -91,17 +85,20 @@ Sales-Data-Analysis/
    - All column types verified
    - Exported Power BI-ready CSV
 
-3. **Dashboard 1 – Kiosk Sales Analytics: Food Item Revenue (All Clients)**
-   - KPI cards: Total Revenue, Transactions, Footfall, Items Sold, Best Item, Top Restaurant
-   - Top 15 food items by combined revenue (all 4 restaurants)
-   - Top 12 food items split by restaurant (stacked bar)
-   - Revenue by menu category (donut + horizontal bar)
+3. **Dashboard 1 – Kiosk Sales Analytics: Food Item Revenue (All Clients)**  
+   *Single composite image (`dashboard1_complete.png`) with KPI cards and all charts in one view:*
+   - KPI cards (top row): Total Revenue, Transactions, Footfall, Items Sold, Best-Selling Item, Top Category
+   - Top 15 food items by combined revenue (all 4 restaurants) — horizontal bar
+   - Revenue by menu category — donut chart + horizontal bar
+   - Top 12 food items split by restaurant — full-width stacked bar
 
-4. **Dashboard 2 – Sales Comparison of All 4 Clients**
-   - Per-restaurant KPI cards: Revenue, Transactions, Footfall, Best Month
-   - Monthly sales trend line (Oct–Dec 2025)
+4. **Dashboard 2 – Sales Comparison of All 4 Clients**  
+   *Single composite image (`dashboard2_complete.png`) with KPI cards and all charts in one view:*
+   - Per-restaurant KPI cards (top row): Revenue, Transactions, Footfall, Best Month
+   - Monthly sales trend line — all 4 clients Oct–Dec 2025
    - Monthly grouped bar comparison
    - Total revenue share donut chart
+   - Revenue by payment mode — stacked bar per restaurant
    - Monthly customer footfall trend on self-serve kiosks
 
 ---
@@ -135,23 +132,29 @@ Sales-Data-Analysis/
 4. Sort `Month` column by `Month_Num`
 5. Add slicers on **Month** for Oct / Nov / Dec filtering
 
-### Dashboard 1 – Kiosk Sales Analytics: Food Item Revenue
+### Dashboard 1 page – Kiosk Sales Analytics: Food Item Revenue (All Clients)
+*All the following visuals go on the same report page:*
+
 | Visual | Field | Values | Notes |
 |--------|-------|--------|-------|
-| KPI Cards (6) | — | Total Revenue, Transactions, Footfall, Items Sold, Best Item, Top Restaurant | — |
-| Horizontal Bar | Food_Item | Sum of Net_Sales | Top N = 15, all restaurants |
-| Stacked Bar | Food_Item | Net_Sales | Legend = Restaurant, Top 12 items |
-| Donut + Bar | Category | Net_Sales | All restaurants combined |
+| KPI Cards (6) | — | Total Revenue, Transactions, Footfall, Items Sold, Best Item, Top Category | Top row of the page |
+| Horizontal Bar (Top 15) | Food_Item | Sum of Net_Sales | All restaurants combined |
+| Donut Chart | Category | Net_Sales | Revenue % by category |
+| Horizontal Bar | Category | Net_Sales | Revenue ₹ by category |
+| 100% Stacked Bar | Food_Item | Net_Sales, Legend=Restaurant | Top 12 items |
 | Month Slicer | Month | — | Oct / Nov / Dec |
 
-### Dashboard 2 – Sales Comparison of All 4 Clients
-| Visual | Field | Values | Legend |
-|--------|-------|--------|--------|
-| KPI Cards (4) | Restaurant | Revenue, Transactions, Footfall, Best Month | per restaurant |
-| Line Chart | Month | Net_Sales | Restaurant |
-| Grouped Bar | Month | Net_Sales | Restaurant |
-| Donut Chart | Restaurant | Net_Sales | — |
-| Line Chart | Month | Count of Customer_ID | Restaurant |
+### Dashboard 2 page – Sales Comparison of All 4 Clients
+*All the following visuals go on the same report page:*
+
+| Visual | Field | Values | Notes |
+|--------|-------|--------|-------|
+| KPI Cards (4) | Restaurant | Revenue, Transactions, Footfall, Best Month | Top row, one card per client |
+| Line Chart | Month | Net_Sales, Legend=Restaurant | Monthly trend |
+| Grouped Bar | Month | Net_Sales, Legend=Restaurant | Month-by-month comparison |
+| Donut Chart | Restaurant | Net_Sales | Revenue share |
+| Stacked Bar | Restaurant | Net_Sales, Legend=Payment_Mode | Payment breakdown |
+| Dashed Line | Month | Count of Customer_ID, Legend=Restaurant | Footfall trend |
 
 ---
 
