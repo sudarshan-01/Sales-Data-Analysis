@@ -33,7 +33,7 @@ Sales-Data-Analysis/
 │
 ├── README.md                        # Project documentation
 │
-├── kiosk_sales_data.csv             # Kiosk sales dataset (Jan–Dec 2024 + Oct–Dec 2025, all 4 restaurants)
+├── kiosk_sales_data.csv             # Kiosk sales dataset (Oct–Dec 2025 only, all 4 restaurants)
 ├── kiosk_sales_data.xlsx            # Excel workbook: Raw Data + Monthly Summary + per-restaurant sheets
 ├── Kiosk_Dashboard.pbids            # Power BI Desktop one-click connection file
 ├── Kiosk_Sales_Analysis.ipynb       # Analysis notebook: per-restaurant + company dashboards
@@ -155,8 +155,8 @@ MoM Revenue Growth % =
 ---
 
 ## Key Insights & Outcomes
-- 🏆 **Rameshwaram Cafe** drives the highest customer footfall (70,560 kiosk orders) — highest self-serve kiosk adoption.
-- 💰 Total company revenue across all 4 outlets: **₹269.67 Lakhs** (Jan–Dec 2024 + Oct–Dec 2025, 15 months).
-- 🍽️ Top-selling item at Rameshwaram Cafe: **Ghee Masala Dosa** (₹21.20L revenue).
-- 📅 Highest revenue month: **October 2025** — new monthly record at ₹21.90L combined.
-- 📊 BigByte has the highest average order value (₹253+) despite lower footfall count.
+- 🏆 **Rameshwaram Cafe** drives the highest customer footfall (14,792 kiosk orders in Q4 2025) — highest self-serve kiosk adoption.
+- 💰 Total company revenue across all 4 outlets: **₹62.93 Lakhs** (Oct–Dec 2025, 3 months).
+- 🍽️ Top-selling item at Rameshwaram Cafe: **Ghee Masala Dosa** (₹5.13L revenue in Q4 2025).
+- 📅 Highest revenue month: **October 2025** — ₹21.90L combined across all restaurants.
+- 📊 BigByte leads in revenue (₹26.84L, 42.6% share) with the highest average order value (₹284).
