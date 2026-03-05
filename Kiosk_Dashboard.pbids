@@ -1,0 +1,15 @@
+{
+  "version": "0.1",
+  "connections": [
+    {
+      "details": {
+        "protocol": "csv",
+        "address": {
+          "url": "kiosk_sales_data.csv"
+        }
+      },
+      "options": {},
+      "mode": "Import"
+    }
+  ]
+}
